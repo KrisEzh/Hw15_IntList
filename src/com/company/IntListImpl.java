@@ -12,39 +12,33 @@ public class IntListImpl implements IntList {
 
     public IntListImpl(int capacity){this.data = new Integer[capacity];}
 
-    int[] myArray = Arrays.copyOf(generateRandomArray(), generateRandomArray().length);
-    public static int[] generateRandomArray() {
-        java.util.Random random = new java.util.Random();
-        int[] myArray = new int[30];
-        for (int i = 0; i < myArray.length; i++) {
-            myArray[i] = random.nextInt(100_000) + 100_000;
-        }
-        return myArray;
-    }
 
-    private static void sortInsertion(int[] myArray) {
-        for (int i = 1; i < myArray.length; i++) {
-            int temp = myArray[i];
+    private void sortMyArray(Integer[] array) {
+        int[]arr = new int[0];
+        for (int i = 1; i < arr.length; i++) {
+            int temp = arr[i];
             int j = i;
-            while (j > 0 && myArray[j - 1] >= temp) {
-                myArray[j] = myArray[j - 1];
+            while (j > 0 && arr[j - 1] >= temp) {
+                arr[j] = arr[j - 1];
                 j--;
             }
-           myArray[j] = temp;
+           arr[j] = temp;
         }
     }
-    private static boolean contains(int[] myArray, int value) {
+
+    private boolean search(Integer[] array, int value) {
+        int[]arr = new int[0];
         int min = 0;
-        int max = myArray.length - 1;
+        int max = arr.length - 1;
 
         while (min <= max) {
             int mid = (min + max) / 2;
 
-            if (value == myArray[mid]) {
+            if (value == arr[mid]) {
                 return true;
             }
 
-            if (value < myArray[mid]) {
+            if (value < arr[mid]) {
                 max = mid - 1;
             } else {
                 min = mid + 1;
@@ -54,8 +48,11 @@ public class IntListImpl implements IntList {
     }
 
     @Override
-    public boolean containsV(int[]myArray, int value){
-        return indexOf(myArray[value]) >= 0;
+    public boolean contains(int value){
+        Integer[] array = Arrays.copyOf(data,data.length);
+        sortMyArray(array);
+        search(array,value);
+        return indexOf(array[value]) >= 0;
     }
 
     @Override
@@ -153,8 +150,8 @@ public class IntListImpl implements IntList {
         }
     }
     @Override
-    public void checkNotNull(int value){
-        if(value == 0){
+    public void checkNotNull(Integer value){
+        if(value == null){
             throw new IllegalArgumentException();
         }
     }

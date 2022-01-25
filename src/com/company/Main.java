@@ -2,8 +2,6 @@ package com.company;
 
 import java.util.Arrays;
 
-import static com.company.IntListImpl.sortMyArray;
-
 public class Main {
 
     public static int[] generateRandomArray() {
@@ -56,7 +54,12 @@ public class Main {
     public static void main(String[] args) {
 
 
-        IntListImpl data = new IntListImpl(10);
+        IntListImpl intList = new IntListImpl();
+        intList.add(1);
+        intList.add(2);
+
+        System.out.println("intList.contains(2) = " + intList.contains(3));
+
 
         //выявление самой быстрой сортировки
 
