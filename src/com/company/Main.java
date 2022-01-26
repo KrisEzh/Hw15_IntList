@@ -6,9 +6,9 @@ public class Main {
 
     public static int[] generateRandomArray() {
         java.util.Random random = new java.util.Random();
-        int[] arr = new int[30];
+        int[] arr = new int[100_000];
         for (int i = 0; i < arr.length; i++) {
-            arr[i] = random.nextInt(100_000) + 100_000;
+            arr[i] = random.nextInt();
         }
         return arr;
     }
@@ -19,7 +19,7 @@ public class Main {
         arr[indexB] = tmp;
     }
 
-    public static void sortBubble(int[]arr) {
+    public static void sortBubble(int[] arr) {
         for (int i = 0; i < arr.length - 1; i++) {
             for (int j = 0; j < arr.length - 1 - i; j++) {
                 if (arr[j] > arr[j + 1]) {
@@ -28,7 +28,8 @@ public class Main {
             }
         }
     }
-    public static void sortSelection(int[]arr) {
+
+    public static void sortSelection(int[] arr) {
         for (int i = 0; i < arr.length - 1; i++) {
             int minElementIndex = i;
             for (int j = i + 1; j < arr.length; j++) {
@@ -39,6 +40,7 @@ public class Main {
             swapElements(arr, i, minElementIndex);
         }
     }
+
     private static void sortInsertion(int[] arr) {
         for (int i = 1; i < arr.length; i++) {
             int temp = arr[i];
@@ -53,12 +55,9 @@ public class Main {
 
     public static void main(String[] args) {
 
-
         IntListImpl intList = new IntListImpl();
         intList.add(1);
-        intList.add(2);
-
-        System.out.println("intList.contains(2) = " + intList.contains(3));
+        System.out.println("intList.contains(1) = " + intList.contains(1));
 
 
         //выявление самой быстрой сортировки
@@ -79,6 +78,7 @@ public class Main {
         long start3 = System.currentTimeMillis();
         sortInsertion(copy3);
         System.out.println(System.currentTimeMillis() - start3);
+
 
     }
 }
