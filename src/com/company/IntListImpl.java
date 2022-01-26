@@ -52,7 +52,7 @@ public class IntListImpl implements IntList {
         Integer[] array = Arrays.copyOf(data,data.length);
         sortMyArray(array);
         search(array,value);
-        return indexOf(array[value]) >= 0;
+        return value >= 0;
     }
 
     @Override
