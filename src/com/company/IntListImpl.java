@@ -66,9 +66,9 @@ public class IntListImpl implements IntList {
 
     @Override
     public boolean contains(int value){
-        int[] array = Arrays.copyOf(generateRandomArray(),generateRandomArray().length);
+        int[]array = new int[0];
+         array = Arrays.copyOf(generateRandomArray(),array.length);
         quickSort(array, 0, array.length-1);
-        search(array,value);
         return search(data,value);
     }
 
@@ -83,8 +83,8 @@ public class IntListImpl implements IntList {
         return Arrays.copyOf(data, size * 2);
     }
 
-    @Override
-    public void checkCapacity(){
+
+    private void checkCapacity(){
         if(size == data.length){
             data = grow();
         }
