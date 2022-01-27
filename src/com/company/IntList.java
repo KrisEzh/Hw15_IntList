@@ -1,15 +1,18 @@
 package com.company;
 
-public interface IntList {
-    boolean containsV(int[] myArray, int value);
+public interface IntList  {
+
+    boolean contains(int value);
 
     int add(int value);
 
-    int add(int index, int value);
+    void checkCapacity();
 
-    int set(int index, int value);
+    Integer add(int index, int value);
 
-    int remove(int value);
+    Integer set(int index, int value);
+
+    Integer remove(int value);
 
     void removeValue(int index);
 
@@ -23,13 +26,9 @@ public interface IntList {
 
     void clear();
 
-    Integer[] toArray();
+    int[] toArray();
 
-    Integer[]grow();
-
-    void checkCapacity();
-
-    void checkNotNull(int value);
+    void checkNotNull(Integer value);
 
     void checkIndex(int index);
 

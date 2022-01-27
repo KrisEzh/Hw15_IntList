@@ -2,32 +2,49 @@ package com.company;
 
 import java.util.Arrays;
 
+import static com.company.Main.generateRandomArray;
+
 public class IntListImpl implements IntList {
     private static final int DEFAULT_CAPACITY = 10;
 
-    private Integer[] data;
+    private int[] data;
     private int size;
 
     public IntListImpl(){this(DEFAULT_CAPACITY);}
 
-    public IntListImpl(int capacity){this.data = new Integer[capacity];}
+    public IntListImpl(int capacity){this.data =  new int[capacity];}
 
-
-    private void sortMyArray(Integer[] array) {
-        int[]arr = new int[0];
-        for (int i = 1; i < arr.length; i++) {
-            int temp = arr[i];
-            int j = i;
-            while (j > 0 && arr[j - 1] >= temp) {
-                arr[j] = arr[j - 1];
-                j--;
-            }
-           arr[j] = temp;
-        }
+    private static void swapElements(int[] arr, int left, int right) {
+        int temp = arr[left];
+        arr[left] = arr[right];
+        arr[right] = temp;
     }
 
-    private boolean search(Integer[] array, int value) {
-        int[]arr = new int[0];
+    private void quickSort(int[] arr, int begin, int end) {
+        if (begin < end) {
+            int partitionIndex = partition(arr, begin, end);
+
+            quickSort(arr, begin, partitionIndex - 1);
+            quickSort(arr, partitionIndex + 1, end);
+        }
+    }
+    private  int partition(int[] arr, int begin, int end) {
+        int pivot = arr[end];
+        int i = (begin - 1);
+
+        for (int j = begin; j < end; j++) {
+            if (arr[j] <= pivot) {
+                i++;
+
+                swapElements(arr, i, j);
+            }
+        }
+
+        swapElements(arr, i + 1, end);
+        return i + 1;
+    }
+
+        private boolean search(int[] arr, int value) {
         int min = 0;
         int max = arr.length - 1;
 
@@ -49,10 +66,10 @@ public class IntListImpl implements IntList {
 
     @Override
     public boolean contains(int value){
-        Integer[] array = Arrays.copyOf(data,data.length);
-        sortMyArray(array);
+        int[] array = Arrays.copyOf(generateRandomArray(),generateRandomArray().length);
+        quickSort(array, 0, array.length-1);
         search(array,value);
-        return value >= 0;
+        return search(data,value);
     }
 
     @Override
@@ -62,9 +79,18 @@ public class IntListImpl implements IntList {
         data[size++] = value;
         return value;
     }
+    private int[] grow(){
+        return Arrays.copyOf(data, size * 2);
+    }
 
     @Override
-    public int add(int index, int value){
+    public void checkCapacity(){
+        if(size == data.length){
+            data = grow();
+        }
+    }
+    @Override
+    public Integer add(int index, int value){
         checkNotNull(value);
         checkCapacity();
         System.arraycopy(data, index,data, index + 1, data.length - index);
@@ -72,14 +98,14 @@ public class IntListImpl implements IntList {
         return value;
     }
     @Override
-    public int set(int index, int value){
+    public Integer set(int index, int value){
         checkNotNull(value);
         checkCapacity();
         data[index] = value;
         return value;
     }
     @Override
-    public int remove(int value){
+    public Integer remove(int value){
         checkNotNull(value);
         checkValueExists(value);
         int index = indexOf(value);
@@ -91,7 +117,7 @@ public class IntListImpl implements IntList {
         if(size - 1 > index) {
             System.arraycopy(data, index + 1, data, index, data.length - index);
         }
-        data[--size] = null;
+        data[--size] = Integer.parseInt(null);
         }
 
         @Override
@@ -131,24 +157,15 @@ public class IntListImpl implements IntList {
 
     @Override
     public void clear(){
-        data = new Integer[DEFAULT_CAPACITY];
+        data = new int[DEFAULT_CAPACITY];
     }
 
     @Override
-    public Integer[] toArray(){
+    public int[] toArray(){
         return Arrays.copyOf(data, data.length);
     }
 
-    @Override
-    public Integer[]grow(){
-        return Arrays.copyOf(data, size * 2);
-    }
-    @Override
-    public void checkCapacity(){
-        if(size == data.length){
-            data = grow();
-        }
-    }
+
     @Override
     public void checkNotNull(Integer value){
         if(value == null){

@@ -57,7 +57,11 @@ public class Main {
 
         IntListImpl intList = new IntListImpl();
         intList.add(1);
-        System.out.println("intList.contains(1) = " + intList.contains(1));
+        intList.add(2);
+        intList.add(3);
+        intList.add(4);
+        intList.add(5);
+        System.out.println(intList.contains(1));
 
 
         //выявление самой быстрой сортировки
